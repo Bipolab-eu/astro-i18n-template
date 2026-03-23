@@ -1,0 +1,14 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+export const prerender = false;
+
+const { page } = Astro.params
+
+console.log(page)
+
+/* in page no exist redirect 404 */
+---
+<Layout>
+  <h1>Hola mundo</h1>
+</Layout>
