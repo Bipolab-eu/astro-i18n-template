@@ -1,7 +1,27 @@
 ---
-export const prerender = false;
+/* Home */
+
+import DynamicZone from "../../layouts/DynamicZone.astro";
 import Layout from "../../layouts/Layout.astro";
+import { fetchApi } from "../../lib/strapi/fetchApi";
+
+const { lang } = Astro.params
+
+// Cambia por el documentId de la página que se quiera mostrar
+const documentId = import.meta.env.DOCUMENT_ID;
+const DZ = import.meta.env.DYNAMIC_ZONE
+
+const data = await fetchApi({
+  apiRoute: `/api/pages/${documentId}`,
+  locale: lang
+}) as any
+
+if (!data) return Astro.redirect("/404")
+
+const { seo, [DZ]:items } = data
+
 ---
-<Layout>
-  <h1>Hola mundo</h1>
+
+<Layout seo={seo}>
+  <DynamicZone blocks={items} />
 </Layout>

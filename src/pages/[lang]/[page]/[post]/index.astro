@@ -1,18 +1,18 @@
 ---
-/* Pages */
+/* Post */
 
-import DynamicZone from "../../../layouts/DynamicZone.astro";
-import Layout from "../../../layouts/Layout.astro";
-import { fetchApi } from "../../../lib/strapi/fetchApi";
+import DynamicZone from "../../../../layouts/DynamicZone.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import { fetchApi } from "../../../../lib/strapi/fetchApi";
 
-const { page } = Astro.params;
+const { post } = Astro.params;
 const DZ = import.meta.env.DYNAMIC_ZONE
 
 const data = await fetchApi({
-  apiRoute: "/api/pages",
+  apiRoute: `/api/posts`,
   filters: {
     slug: {
-      $eq: page,
+      $eq: post,
     },
   },
 }) as any

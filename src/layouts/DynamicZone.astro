@@ -1,0 +1,17 @@
+---
+import { listComponents } from '../lib/strapi/content-type';
+
+interface Props { blocks: any }
+
+const { blocks } = Astro.props as Props;
+
+if (!blocks) return console.warn("DynamicZone: No sections found")
+
+---
+
+{
+  blocks.map((item: any, i: number) => {
+    const Component = listComponents[item.__component];
+    return <Component key={`${item.id || ""}-${i}`} {...item} />;
+  })
+}

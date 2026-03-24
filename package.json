@@ -13,6 +13,12 @@
   },
   "dependencies": {
     "@astrojs/node": "^10.0.3",
-    "astro": "^6.0.8"
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.0.8",
+    "qs": "^6.15.0",
+    "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.15.0"
   }
 }

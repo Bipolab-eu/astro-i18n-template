@@ -1,5 +1,14 @@
 ---
+import "../styles/global.css";
+
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Blocks/Footer.astro";
+
+interface Props {
+	seo: any;
+}
+
+const { seo } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -10,11 +19,27 @@ import Navbar from "../components/Navbar.astro";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO básico -->
 		<title>Astro I18N</title>
+		<meta name="description" content={seo?.metaDescription} />
+
+		<!-- Open Graph -->
+		<!-- {seo.ogTitle && <meta property="og:title" content={seo.ogTitle} />}
+    {seo.ogDescription && <meta property="og:description" content={seo.ogDescription} />}
+    {seo.ogUrl && <meta property="og:url" content={seo.ogUrl} />}
+    {seo.ogImage && <meta property="og:image" content={seo.ogImage} />}
+    <meta property="og:type" content="website" /> -->
+
+		<!-- Twitter tags -->
+		<!-- <meta name="twitter:card" content="summary_large_image" /> -->
+
+		<!-- Scripts -->
+		<script is:inline src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"/>
 	</head>
 	<body>
-		<Navbar >
+		<Navbar />
 		<slot />
+		<Footer />
 	</body>
 </html>
-
