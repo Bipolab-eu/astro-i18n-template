@@ -22,22 +22,25 @@ const navItems = [
 
 <div class="relative isolate flex min-h-svh w-full flex-col bg-neutral-50 lg:bg-neutral-100">
   <!-- Mobile Sidebar -->
-  <Dialog class='p-2 lg:hidden'>
-    <DialogTrigger asChild>
-      <Button variant="ghost"><Menu /></Button>
-    </DialogTrigger>
-    <DialogContent animationDuration={300} class='top-0 left-0 translate-x-0 w-2/3 min-h-svh'>
-        {
-          navItems.map((item) => (
-            <DialogClose asChild>
-              <Button href={item.path} variant="ghost" size="sm" class='block w-full text-left'>
-                {item.title}
-              </Button>
-            </DialogClose>
-          ))
-        }
-    </DialogContent>
-  </Dialog>
+   <div class="flex items-center justify-between p-2 lg:hidden">
+     <Dialog>
+       <DialogTrigger asChild>
+         <Button variant="ghost"><Menu /></Button>
+       </DialogTrigger>
+       <DialogContent animationDuration={300} class='top-0 left-0 translate-x-0 w-2/3 min-h-svh'>
+           {
+             navItems.map((item) => (
+               <DialogClose asChild>
+                 <Button href={item.path} variant="ghost" size="sm" class='block w-full text-left'>
+                   {item.title}
+                 </Button>
+               </DialogClose>
+             ))
+           }
+       </DialogContent>
+     </Dialog>
+     <LanguagePicker />
+   </div>
 
   <header class="hidden lg:inline-flex p-2">
     <!-- Brand logo -->
