@@ -1,15 +1,14 @@
 ---
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownContent,
-  DropdownItem,
-  DropdownSeparator,
-} from "@/components/starwind/dropdown";
 import { Separator } from "@/components/starwind/separator";
 import { Button } from "@/components/starwind/button";
 import LanguagePicker from "@/components/LanguagePicker.astro";
 import { Menu } from "@lucide/astro";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogClose,
+} from "@/components/starwind/dialog";
 
 const currentPath = Astro.url.pathname;
 
@@ -22,55 +21,47 @@ const navItems = [
 ---
 
 <div class="relative isolate flex min-h-svh w-full flex-col bg-neutral-50 lg:bg-neutral-100">
+  <!-- Mobile Sidebar -->
+  <Dialog class='p-2 lg:hidden'>
+    <DialogTrigger asChild>
+      <Button variant="ghost"><Menu /></Button>
+    </DialogTrigger>
+    <DialogContent animationDuration={300} class='top-0 left-0 translate-x-0 w-2/3 min-h-svh'>
+        {
+          navItems.map((item) => (
+            <DialogClose asChild>
+              <Button href={item.path} variant="ghost" size="sm" class='block w-full text-left'>
+                {item.title}
+              </Button>
+            </DialogClose>
+          ))
+        }
+    </DialogContent>
+  </Dialog>
 
-  <header class="inline-flex p-2">
-    <!-- Logo -->
-     <div class="inline-flex">
-       <Button href="/" size="sm" variant="ghost">Logotipo</Button>
-       <Separator orientation="vertical" class='bg-neutral-300' />
-      </div>
-
-    <!-- Mobile: language picker + menú hamburguesa -->
-    <div class="flex items-center gap-1 lg:hidden ml-auto">
-      <LanguagePicker />
-      <Dropdown>
-        <DropdownTrigger asChild>
-          <Button variant="ghost" size="icon-sm" aria-label="Abrir menú">
-            <Menu />
-          </Button>
-        </DropdownTrigger>
-        <DropdownContent align="end" class="w-56">
-          {navItems.map((item) => (
-            <DropdownItem
-              as="a"
-              href={item.path}
-              class={currentPath === item.path ? "bg-accent" : ""}
-            >
-              {item.title}
-            </DropdownItem>
-          ))}
-        </DropdownContent>
-      </Dropdown>
+  <header class="hidden lg:inline-flex p-2">
+    <!-- Brand logo -->
+    <div class="inline-flex items-center">
+      <Button href="/" size="sm" variant="ghost">Logotipo</Button>
+      <Separator orientation="vertical" class="bg-neutral-400 h-full" />
     </div>
 
-    <!-- Desktop: navbar -->
-    <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
-      <nav class="flex items-center">
-        {navItems.map((item) => (
-          <Button
-            href={item.path}
-            variant="ghost"
-            size="sm"
-          >
-            {item.title}
-          </Button>
-        ))}
+    <!-- Desktop: Navigation + Language Picker -->
+    <div class="lg:flex lg:flex-1 lg:items-center lg:justify-between">
+      <nav class="lg:flex items-center">
+        {
+          navItems.map((item) => (
+            <Button href={item.path} variant="ghost" size="sm">
+              {item.title}
+            </Button>
+          ))
+        }
       </nav>
       <LanguagePicker />
     </div>
-
   </header>
 
+  
   <!-- Main content -->
   <main class="flex flex-1 flex-col pb-2 lg:px-2">
     <div
@@ -81,5 +72,4 @@ const navItems = [
       </div>
     </div>
   </main>
-
 </div>
