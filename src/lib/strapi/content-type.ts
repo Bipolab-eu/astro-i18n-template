@@ -1,7 +1,3 @@
-import Header from "../../components/Blocks/Header.astro";
-import Hero from "../../components/Blocks/Hero.astro";
-import Newsletter from "../../components/Blocks/Newsletter.astro";
-import Unsubscribe from "../../components/Blocks/Unsubscribe.astro";
 
 const dinamicZoneName = import.meta.env.DYNAMIC_ZONE
 
@@ -59,10 +55,10 @@ export const populate = {
 
 export const listComponents: Record<string, any> = {
   // Crea la lista de componentes necesarios para renderizar en la Dynamic Zone
- [`${dinamicZoneName}.newsletter`]: Newsletter,
- [`${dinamicZoneName}.unsubscribe`]: Unsubscribe,
- [`${dinamicZoneName}.hero`]: Hero,
- [`${dinamicZoneName}.header`]: Header,
+ //[`${dinamicZoneName}.newsletter`]: Newsletter,
+ //[`${dinamicZoneName}.unsubscribe`]: Unsubscribe,
+ //[`${dinamicZoneName}.hero`]: Hero,
+ //[`${dinamicZoneName}.header`]: Header,
  /* [`${dinamicZoneName}.drop-packs`]: DropPacks,
  [`${dinamicZoneName}.digital-product`]: DigitalProduct,
  [`${dinamicZoneName}.legal`]: Legal,

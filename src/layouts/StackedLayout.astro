@@ -1,0 +1,30 @@
+---
+import Navbar from "@/components/Navbar.astro";
+---
+
+<div class="relative isolate flex min-h-svh w-full flex-col bg-neutral-50 lg:bg-neutral-100">
+  <!-- Sidebar on mobile -->
+      <Navbar />
+
+  <!-- Navbar -->
+   <header class="flex items-center px-4">
+    <div class="py-2.5 lg:hidden">
+      <!-- 
+      <NavbarItem onClick={() => setShowSidebar(true)} aria-label="Open navigation">
+            <OpenMenuIcon />
+          </NavbarItem>
+      -->
+      <Navbar />
+    </div>
+    <!-- <div class="min-w-0 flex-1">{navbar}</div> -->
+   </header>
+
+   <!-- Main content -->
+    <main class="flex flex-1 flex-col pb-2 lg:px-2">
+      <div class="grow p-6 lg:rounded-lg lg:bg-neutral-50 lg:p-10 lg:shadow-xs lg:ring-1 lg:ring-neutral-950/5">
+        <div class="mx-auto max-w-6xl">
+          <slot />
+        </div>
+      </div>
+    </main>
+</div>
