@@ -6,26 +6,33 @@ import {
   DropdownItem,
   DropdownSeparator,
 } from "@/components/starwind/dropdown";
+import { Separator } from "@/components/starwind/separator";
 import { Button } from "@/components/starwind/button";
-import Navbar from "@/components/Navbar.astro";
+import LanguagePicker from "@/components/LanguagePicker.astro";
 import { Menu } from "@lucide/astro";
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { title: "Dashboard", path: "#page-1" },
+  { title: "Team", path: "#page-2" },
+  { title: "Projects", path: "#page-3" },
+  { title: "Calendar", path: "#page-4" },
+];
 ---
 
 <div class="relative isolate flex min-h-svh w-full flex-col bg-neutral-50 lg:bg-neutral-100">
 
-  <header class="flex items-center px-4">
-
+  <header class="inline-flex p-2">
     <!-- Logo -->
-    <a href="/" class="flex shrink-0 items-center py-4">
-      <img
-        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-        alt="Logo"
-        class="h-8 w-auto"
-      />
-    </a>
+     <div class="inline-flex">
+       <Button href="/" size="sm" variant="ghost">Logotipo</Button>
+       <Separator orientation="vertical" class='bg-neutral-300' />
+      </div>
 
-    <!-- Mobile: menú hamburguesa -->
-    <div class="py-2.5 lg:hidden ml-auto">
+    <!-- Mobile: language picker + menú hamburguesa -->
+    <div class="flex items-center gap-1 lg:hidden ml-auto">
+      <LanguagePicker />
       <Dropdown>
         <DropdownTrigger asChild>
           <Button variant="ghost" size="icon-sm" aria-label="Abrir menú">
@@ -33,18 +40,33 @@ import { Menu } from "@lucide/astro";
           </Button>
         </DropdownTrigger>
         <DropdownContent align="end" class="w-56">
-          <DropdownItem as="a" href="#">Dashboard</DropdownItem>
-          <DropdownItem as="a" href="#">Team</DropdownItem>
-          <DropdownItem as="a" href="#">Projects</DropdownItem>
-          <DropdownSeparator />
-          <DropdownItem as="a" href="#">Settings</DropdownItem>
+          {navItems.map((item) => (
+            <DropdownItem
+              as="a"
+              href={item.path}
+              class={currentPath === item.path ? "bg-accent" : ""}
+            >
+              {item.title}
+            </DropdownItem>
+          ))}
         </DropdownContent>
       </Dropdown>
     </div>
 
-    <!-- Desktop: navbar completa -->
-    <div class="hidden lg:flex lg:flex-1">
-      <Navbar />
+    <!-- Desktop: navbar -->
+    <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
+      <nav class="flex items-center">
+        {navItems.map((item) => (
+          <Button
+            href={item.path}
+            variant="ghost"
+            size="sm"
+          >
+            {item.title}
+          </Button>
+        ))}
+      </nav>
+      <LanguagePicker />
     </div>
 
   </header>
@@ -54,7 +76,7 @@ import { Menu } from "@lucide/astro";
     <div
       class="grow p-6 lg:rounded-lg lg:bg-neutral-50 lg:p-10 lg:shadow-xs lg:ring-1 lg:ring-neutral-950/5"
     >
-      <div class="mx-auto max-w-6xl">
+      <div class="mx-auto max-w-7xl">
         <slot />
       </div>
     </div>
