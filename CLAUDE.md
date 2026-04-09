@@ -21,6 +21,12 @@
 - `npm run dev` — servidor local
 - `npm run build` — build de producción
 
+## Internacionalización
+- Idiomas disponibles: `es`, `en`
+- Idioma por defecto: `es`
+- Todo mock data debe incluir versiones para ambos idiomas
+- El routing siempre es `[lang]/` — nunca crear páginas fuera de esta estructura
+
 ## Crear un nuevo componente UI
 1. Guardar en `src/components/ui/MiComponente.astro` (PascalCase)
 2. Definir `interface Props` con tipos explícitos
@@ -39,6 +45,7 @@
 - `src/lib/strapi/content-type.ts` — registro de componentes para DynamicZone
 - `src/layouts/DynamicZone.astro` — renderizador de bloques de Strapi
 - `src/styles/starwind.css` — único archivo de estilos
+- `src/i18n/ui.ts` — traducciones y configuración de idiomas
 - `src/pages/[lang]/` — routing por idioma
   - `index.astro` — home por idioma
   - `[page]/index.astro` — páginas de primer nivel
