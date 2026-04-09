@@ -14,7 +14,6 @@ Los componentes de UI se renderizan a través de `DynamicZone`,
 que resuelve bloques de contenido de Strapi automáticamente.
 Ver `CLAUDE.md` para el flujo de registro de componentes.
 
-
 ## Project Structure
 ```text
 /
