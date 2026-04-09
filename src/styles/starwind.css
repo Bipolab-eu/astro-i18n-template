@@ -1,5 +1,3 @@
-/* For Custom Theming Read Docs: https://starwind.dev/docs/getting-started/theming/ */
-
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/forms";
