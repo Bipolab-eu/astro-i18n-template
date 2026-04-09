@@ -1,82 +1,19 @@
 # Astro + Starwind Project Structure
-This document describes the project structure and coding conventions for an Astro project using **only Starwind components and styles**. It is designed for both humans and AI assistants.
+Web project built with Astro, Starwind UI and Strapi as CMS.
 
----
+## Requirements
+- Node.js 18+
+- Access to a Strapi instance
 
-## Project Guidelines
-- **Base**: Always build components using Starwind components.
-- **Location**: Save new components in src/components/ui/.
-- **Naming**: Use PascalCase, e.g., NewComponent.astro.
-- **Styling**: Only use Starwind classes from starwind.css.
-- **Components**: Only use components from Starwind (`src/components/starwind`). No custom components outside of Starwind.
-- **CSS**: Only use `starwind.css` from Starwind. Do not add custom CSS. Follow Starwind docs for class usage.
-- **Astro Version**: Follow the latest Astro documentation for project setup, layouts, and dynamic routing.
-- **MCP Server**:
-  - Use Starwind MCP server for dynamic content and previews.
-  - Use Strapi MCP for api calls and dynamic zone population.
-- **TypeScript**: Avoid `any`. Use explicit types or interfaces.
+## Getting started
+npm install
+npm run dev
 
----
+## Arquitectura
+Los componentes de UI se renderizan a través de `DynamicZone`, 
+que resuelve bloques de contenido de Strapi automáticamente.
+Ver `CLAUDE.md` para el flujo de registro de componentes.
 
-## Adding New Components to DynamicZone
-
-Every new UI component (`src/components/ui/`) must be registered in the DynamicZone flow so Strapi can resolve it automatically.
-
-### Steps
-
-**1. Create the component**
-Save it in `src/components/ui/MyComponent.astro` with typed props:
-```typescript
-interface Props {
-  title: string;
-  // ...
-}
-```
-
-**2. Register it in `src/lib/strapi/content-type.ts`**
-
-Add the import and register it in both `populate` and `listComponents`:
-
-```typescript
-import MyComponent from "@/components/ui/MyComponent.astro";
-
-export const populate = {
-  [dinamicZoneName]: {
-    on: {
-      [`${dinamicZoneName}.my-component`]: { populate: true },
-    }
-  }
-}
-
-export const listComponents = {
-  [`${dinamicZoneName}.my-component`]: MyComponent,
-}
-```
-
-The key format is `{DYNAMIC_ZONE}.{component-slug}` — must match the Strapi component UID.
-
-**3. Mock data format (for testing without Strapi)**
-
-In the page, add a block with `__component` matching the registered key:
-
-```typescript
-const blocks = [
-  {
-    __component: "sections.my-component",
-    title: "Mock title",
-    // ...rest of props
-  }
-]
-```
-
-Then pass it to `<DynamicZone blocks={blocks} />`.
-
-### Rules
-- Never render a component directly in a page if it belongs to content managed by Strapi — always go through `DynamicZone`.
-- The `__component` value in mock data must exactly match the key in `listComponents`.
-- Avoid `any` in component props — define an explicit `interface Props`.
-
----
 
 ## Project Structure
 ```text
