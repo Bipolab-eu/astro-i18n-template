@@ -1,5 +1,5 @@
 ---
-/* Home */
+/* Home Page */
 
 import DynamicZone from "../../layouts/DynamicZone.astro";
 import Layout from "../../layouts/Layout.astro";
@@ -7,10 +7,11 @@ import { fetchApi } from "../../lib/strapi/fetchApi";
 
 const { lang } = Astro.params
 
-// Cambia por el documentId de la página que se quiera mostrar
+// documentId y DZ se configuran por entorno — ver .env.example
 const documentId = import.meta.env.DOCUMENT_ID;
 const DZ = import.meta.env.DYNAMIC_ZONE
 
+// Sin data redirige a 404 — no renderizar página vacía
 const data = await fetchApi({
   apiRoute: `/api/pages/${documentId}`,
   locale: lang

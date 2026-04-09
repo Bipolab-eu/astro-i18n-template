@@ -1,5 +1,5 @@
 ---
-/* Pages */
+/* Top Level Pages */
 
 import DynamicZone from "../../../layouts/DynamicZone.astro";
 import Layout from "../../../layouts/Layout.astro";
@@ -8,6 +8,7 @@ import { fetchApi } from "../../../lib/strapi/fetchApi";
 const { page } = Astro.params;
 const DZ = import.meta.env.DYNAMIC_ZONE
 
+// Busca la página por slug — devuelve array, se usa el primer resultado
 const data = await fetchApi({
   apiRoute: "/api/pages",
   filters: {
@@ -17,6 +18,7 @@ const data = await fetchApi({
   },
 }) as any
 
+// data[0] porque la API devuelve array aunque el slug sea único
 if (!data[0]) return Astro.redirect("/404")
 
 const { seo, [DZ]:items } = data[0]
