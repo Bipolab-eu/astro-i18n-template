@@ -1,46 +1,59 @@
-# Astro Starter Kit: Basics
+# Astro + Starwind Project Structure
+This document describes the project structure and coding conventions for an Astro project using **only Starwind components and styles**. It is designed for both humans and AI assistants.
 
-```sh
-npm create astro@latest -- --template basics
-```
+---
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Project Guidelines
+- **Base**: Always build components using Starwind components.
+- **Location**: Save new components in src/components/ui/.
+- **Naming**: Use PascalCase, e.g., NewComponent.astro.
+- **Styling**: Only use Starwind classes from starwind.css.
+- **Components**: Only use components from Starwind (`src/components/starwind`). No custom components outside of Starwind.
+- **CSS**: Only use `starwind.css` from Starwind. Do not add custom CSS. Follow Starwind docs for class usage.
+- **Astro Version**: Follow the latest Astro documentation for project setup, layouts, and dynamic routing.
+- **MCP Server**:
+  - Use Starwind MCP server for dynamic content and previews.
+  - Use Strapi MCP for api calls and dynamic zone population.
+- **TypeScript**: Avoid `any`. Use explicit types or interfaces.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
-
+## Project Structure
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── public/                  # Static assets served directly (favicon, images, etc.)
+│   ├── favicon.svg
+│   └── favicon.ico
+├── src/
+│   ├── assets/              # Images, logos, icons, fonts, etc.
+│   │   └── your-logo.svg
+│   ├── components/          # Reusable UI components
+│   │   ├── starwind/        # Components from the Starwind library
+│   │   └── ui/              # Custom UI components created for your project
+│   ├── i18n/                # Internationalization files
+│   │   └── ui.ts
+│   ├── layouts/             # Page layouts and wrappers
+│   │   ├── Layout.astro
+│   │   ├── StackedLayout.astro
+│   │   └── DynamicZone.astro
+│   ├── lib/                 # Project libraries and utilities
+│   │   ├── strapi/          # Strapi API helpers
+│   │   │   ├── content-type.ts
+│   │   │   ├── fetchApi.ts
+│   │   │   └── fetchNavigation.ts
+│   │   └── utils/           # Helper functions
+│   │       └── starwind/
+│   │           └── positioning.ts
+│   ├── pages/               # Astro pages, using dynamic routing
+│   │   ├── [lang]/          # Language-specific pages
+│   │   │   ├── index.astro  # Home page per language
+│   │   │   └── [page]/      # Top-level pages
+│   │   │       └── index.astro
+│   │   │       └── [post]/  # Post entries under each page
+│   │   │           └── index.astro
+│   │   ├── 404.astro        # Custom 404 page
+│   │   └── index.astro      # Default homepage
+│   └── styles/              # Global CSS and Starwind styles
+│       └── starwind.css
+└── package.json             # Project metadata and dependencies
 ```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

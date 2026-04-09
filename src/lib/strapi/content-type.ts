@@ -1,47 +1,14 @@
 
 const dinamicZoneName = import.meta.env.DYNAMIC_ZONE
 
+// Esto popula zonas dinamicas de strapi, como los bloques de secciones, o el open graph de SEO.
 export const populate = {
-  // Esto popula zonas dinamicas de strapi, como los bloques de secciones, o el open graph de SEO.
   [dinamicZoneName]: {
     on: {
-      [`${dinamicZoneName}.newsletter`]: {
+      [`${dinamicZoneName}.your-component`]: {
         populate: true
       },
-      [`${dinamicZoneName}.unsubscribe`]: {
-        populate: true
-      },
-      [`${dinamicZoneName}.hero`]: {
-        populate: {
-          cover: true,
-          actions: true
-        }
-      },
-      [`${dinamicZoneName}.header`]: true,
-      [`${dinamicZoneName}.drop-packs`]: {
-        populate: {
-          cover: true,
-        }
-      },
-      [`${dinamicZoneName}.digital-product`]: {
-        populate: true
-      },
-      [`${dinamicZoneName}.legal`]: true,
-      [`${dinamicZoneName}.cookies`]: true,
-      [`${dinamicZoneName}.stores`]: {
-        populate: {
-          stores: {
-            populate: 'cover'
-          }
-        }
-      },
-      [`${dinamicZoneName}.mermbership-pricing`]: {
-        populate: {
-          header: true,
-          tiers: true
-        }
-      },
-      // populate more components
+      // ...
     }
   },
   seo: {
@@ -53,17 +20,8 @@ export const populate = {
   }
 }
 
+// Crea la lista de componentes necesarios para renderizar en la Dynamic Zone
 export const listComponents: Record<string, any> = {
-  // Crea la lista de componentes necesarios para renderizar en la Dynamic Zone
- //[`${dinamicZoneName}.newsletter`]: Newsletter,
- //[`${dinamicZoneName}.unsubscribe`]: Unsubscribe,
- //[`${dinamicZoneName}.hero`]: Hero,
- //[`${dinamicZoneName}.header`]: Header,
- /* [`${dinamicZoneName}.drop-packs`]: DropPacks,
- [`${dinamicZoneName}.digital-product`]: DigitalProduct,
- [`${dinamicZoneName}.legal`]: Legal,
- [`${dinamicZoneName}.cookies`]: Cookies,
- [`${dinamicZoneName}.stores`]: Stores,
- [`${dinamicZoneName}.mermbership-pricing`]: MembershipPricing, */
- // add more components
+ // [`${dinamicZoneName}.your-component`]: YourComponentImported,
+ // ...
 };

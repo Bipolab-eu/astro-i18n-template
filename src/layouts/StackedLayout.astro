@@ -1,9 +1,7 @@
 ---
 import { Separator } from "@/components/starwind/separator";
 import { Button } from "@/components/starwind/button";
-import { languages } from "../i18n/ui";
 import { Menu } from "@lucide/astro";
-import { Languages } from "@lucide/astro";
 
 import {
   Dialog,
@@ -14,12 +12,7 @@ import {
   DialogTitle,
 } from "@/components/starwind/dialog";
 
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownContent,
-  DropdownItem,
-} from "@/components/starwind/dropdown";
+import LanguagePicker from "@/components/ui/LanguagePicker.astro";
 
 const currentPath = Astro.url.pathname;
 
@@ -66,20 +59,7 @@ const navItems = [
       </DialogContent>
     </Dialog>
     <!-- Language Picker -->
-    <Dropdown>
-      <DropdownTrigger asChild>
-        <Button variant="default" size="icon"><Languages /></Button>
-      </DropdownTrigger>
-      <DropdownContent align="end">
-        {
-          Object.entries(languages).map(([lang, label]) => (
-            <DropdownItem as="a" href={`/${lang}/`}>
-              {label}
-            </DropdownItem>
-          ))
-        }
-      </DropdownContent>
-    </Dropdown>
+    <LanguagePicker />
   </div>
 
   <header class="hidden p-2 lg:inline-flex">
@@ -101,20 +81,7 @@ const navItems = [
         }
       </nav>
       <!-- Language Picker -->
-      <Dropdown>
-        <DropdownTrigger asChild>
-          <Button variant="default" size="icon"><Languages /></Button>
-        </DropdownTrigger>
-        <DropdownContent align="end">
-          {
-            Object.entries(languages).map(([lang, label]) => (
-              <DropdownItem as="a" href={`/${lang}/`}>
-                {label}
-              </DropdownItem>
-            ))
-          }
-        </DropdownContent>
-      </Dropdown>
+       <LanguagePicker />
     </div>
   </header>
 
