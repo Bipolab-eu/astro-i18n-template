@@ -10,6 +10,9 @@
 - Estilos SOLO con clases de `starwind.css`. Sin CSS custom, sin estilos inline.
 - TypeScript: nunca usar `any`. Siempre interfaces o tipos explícitos.
 - Todo componente de contenido va a través de `<DynamicZone>`, nunca directo en una página.
+- Nunca crear una ruta hardcoded. Toda nueva página debería servirse a través del [lang]/[page]/[post] dinámico existente, que ya gestiona todas las páginas.
+
+Lo correcto: eliminar src/pages/[lang]/coche/ y añadir el mock data como fallback en [page]/index.astro.
 
 ## CMS
 - Strapi es el CMS del proyecto, aunque puede no estar activo en local
@@ -34,6 +37,13 @@
    - Añadir en `populate` bajo la dynamic zone correspondiente
    - Añadir en `listComponents` con clave `{zona}.{slug-componente}`
 4. La clave debe coincidir exactamente con el UID del componente en Strapi
+
+### Al terminar, mostrar siempre un resumen con:
+- Nombre del archivo y descripción del layout
+- Tabla de props con columnas: Prop | Tipo Strapi | Descripción
+  - Consultar tipos via Strapi MCP antes de generar la tabla
+- Clave en Strapi: `{DYNAMIC_ZONE}.{slug-componente}`
+- Ejemplo de mock data listo para copiar
 
 ## MCP Servers activos
 - **Starwind MCP** → contenido dinámico y previews
