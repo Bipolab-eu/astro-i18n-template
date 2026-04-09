@@ -18,6 +18,66 @@ This document describes the project structure and coding conventions for an Astr
 
 ---
 
+## Adding New Components to DynamicZone
+
+Every new UI component (`src/components/ui/`) must be registered in the DynamicZone flow so Strapi can resolve it automatically.
+
+### Steps
+
+**1. Create the component**
+Save it in `src/components/ui/MyComponent.astro` with typed props:
+```typescript
+interface Props {
+  title: string;
+  // ...
+}
+```
+
+**2. Register it in `src/lib/strapi/content-type.ts`**
+
+Add the import and register it in both `populate` and `listComponents`:
+
+```typescript
+import MyComponent from "@/components/ui/MyComponent.astro";
+
+export const populate = {
+  [dinamicZoneName]: {
+    on: {
+      [`${dinamicZoneName}.my-component`]: { populate: true },
+    }
+  }
+}
+
+export const listComponents = {
+  [`${dinamicZoneName}.my-component`]: MyComponent,
+}
+```
+
+The key format is `{DYNAMIC_ZONE}.{component-slug}` — must match the Strapi component UID.
+
+**3. Mock data format (for testing without Strapi)**
+
+In the page, add a block with `__component` matching the registered key:
+
+```typescript
+const blocks = [
+  {
+    __component: "sections.my-component",
+    title: "Mock title",
+    // ...rest of props
+  }
+]
+```
+
+Then pass it to `<DynamicZone blocks={blocks} />`.
+
+### Rules
+- Never render a component directly in a page if it belongs to content managed by Strapi — always go through `DynamicZone`.
+- The `__component` value in mock data must exactly match the key in `listComponents`.
+- Avoid `any` in component props — define an explicit `interface Props`.
+
+---
+
 ## Project Structure
 ```text
 /
