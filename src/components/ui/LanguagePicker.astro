@@ -14,7 +14,7 @@ import { languages } from "@/i18n/ui";
   <DropdownTrigger asChild>
     <Button variant="default" size="icon"><Languages /></Button>
   </DropdownTrigger>
-  <DropdownContent align="end">
+  <DropdownContent side="top" align="end">
     {
       Object.entries(languages).map(([lang, label]) => (
         <DropdownItem as="a" href={`/${lang}/`}>

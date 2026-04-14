@@ -1,98 +1,51 @@
 ---
-import { Separator } from "@/components/starwind/separator";
-import { Button } from "@/components/starwind/button";
-import { Menu } from "@lucide/astro";
-
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogClose,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/starwind/dialog";
-
+import Navbar2, {
+  type NavLink,
+} from "@/components/starwind-pro/navbar-02/Navbar2.astro";
 import LanguagePicker from "@/components/ui/LanguagePicker.astro";
+import { fetchNavigation } from "@/lib/strapi/fetchNavigation";
 
-const currentPath = Astro.url.pathname;
+const { lang } = Astro.params;
 
-const navItems = [
-  { title: "Dashboard", path: "#page-1" },
-  { title: "Team", path: "#page-2" },
-  { title: "Projects", path: "#page-3" },
-  { title: "Calendar", path: "#page-4" },
+const mockedData: NavLink[] = [
+  {
+    title: "Features",
+    items: [
+      { title: "Analytics", path: "#analytics" },
+      { title: "Integrations", path: "#integrations" },
+      { title: "Team", path: "#team" },
+    ],
+  },
+  { title: "Pricing", path: "#pricing" },
+  { title: "About", path: "#about" },
+  { title: "Blog", path: "#blog" },
 ];
+
+let navigation: NavLink[] = mockedData;
+
+const data = (await fetchNavigation({
+  navigationId: "/api/navigation/render/navigation",
+  locale: lang,
+  type: "TREE",
+})) as any;
+
+if (data?.length) navigation = data;
 ---
 
-<div
-  class="relative isolate flex min-h-svh flex-col bg-neutral-50 lg:bg-neutral-100"
->
-  <!-- Mobile Sidebar -->
-  <div class="flex items-center justify-between p-2 lg:hidden">
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="ghost"><Menu /></Button>
-      </DialogTrigger>
-      <DialogContent
-        animationDuration={300}
-        class="translate-x-0 top-0 left-0 pt-5.5 w-3/4 min-h-svh"
-      >
-        <DialogHeader class="text-left mb-5">
-          <DialogTitle>Logotipo</DialogTitle>
-        </DialogHeader>
-        <div class="flex flex-col items-start">
-          {
-            navItems.map((item) => (
-              <DialogClose asChild>
-                <Button
-                  href={item.path}
-                  variant="ghost"
-                  size="sm"
-                  class="inline-flex justify-start w-full px-0"
-                >
-                  {item.title}
-                </Button>
-              </DialogClose>
-            ))
-          }
-        </div>
-      </DialogContent>
-    </Dialog>
-    <!-- Language Picker -->
-    <LanguagePicker />
-  </div>
-
-  <header class="hidden p-2 lg:inline-flex">
-    <!-- Brand logo -->
-    <div class="inline-flex items-center">
-      <Button href="/" size="sm" variant="ghost" class='pl-0'>Logotipo</Button>
-      <Separator orientation="vertical" class="bg-neutral-400 h-full" />
-    </div>
-
-    <!-- Desktop: Navigation + Language Picker -->
-    <div class="flex flex-1 items-center justify-between">
-      <nav class="flex items-center gap-x-4 ml-4">
-        {
-          navItems.map((item) => (
-            <Button href={item.path} variant="ghost" size="sm" class='px-0'>
-              {item.title}
-            </Button>
-          ))
-        }
-      </nav>
-      <!-- Language Picker -->
-       <LanguagePicker />
-    </div>
-  </header>
+<div class="relative isolate flex min-h-svh flex-col bg-neutral-50 lg:bg-neutral-100">
+  <Navbar2 siteName="Mi Web" links={navigation} />
 
   <!-- Main content -->
   <main class="flex flex-1 flex-col pb-2 lg:px-2">
-    <div
-      class="grow p-6 lg:rounded-lg lg:bg-neutral-50 lg:p-10 lg:shadow-xs lg:ring-1 lg:ring-neutral-950/5"
-    >
+    <div class="grow p-6 lg:rounded-lg lg:bg-neutral-50 lg:p-10 lg:shadow-xs lg:ring-1 lg:ring-neutral-950/5">
       <div class="w-full">
         <slot />
       </div>
     </div>
   </main>
+  
+  <!-- Language Picker -->
+  <div class="absolute bottom-0 right-0 p-4">
+    <LanguagePicker />
+  </div>
 </div>
