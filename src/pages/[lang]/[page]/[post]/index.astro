@@ -5,12 +5,13 @@ import DynamicZone from "../../../../layouts/DynamicZone.astro";
 import Layout from "../../../../layouts/Layout.astro";
 import { fetchApi } from "../../../../lib/strapi/fetchApi";
 
-const { post } = Astro.params;
+const { lang, post } = Astro.params;
 const DZ = import.meta.env.DYNAMIC_ZONE
 
 // Busca el post por slug — mismo patrón que [page] pero contra /api/posts
 const data = await fetchApi({
   apiRoute: `/api/posts`,
+  locale: lang,
   filters: {
     slug: {
       $eq: post,

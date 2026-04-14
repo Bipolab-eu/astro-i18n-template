@@ -56,6 +56,7 @@ const {
   ...rest
 } = Astro.props;
 
+const { lang } = Astro.params
 ---
 
 <nav class={navStyles({ class: className })} data-navbar-2 {...rest}>
@@ -86,7 +87,7 @@ const {
                   </DropdownTrigger>
                   <DropdownContent align="start">
                     {link.items.map((child) => (
-                      <DropdownItem as="a" href={child.path}>
+                      <DropdownItem as="a" href={`/${lang}${child.path}`}>
                         {child.title}
                       </DropdownItem>
                     ))}
@@ -97,7 +98,7 @@ const {
 
             return (
               <a
-                href={link.path}
+                href={`/${lang}${link.path}`}
                 class="text-muted-foreground hover:text-foreground rounded-md px-3 py-2 transition-colors"
               >
                 {link.title}
@@ -159,7 +160,7 @@ const {
                         {link.items.map((child) => (
                           <SheetClose asChild>
                             <a
-                              href={child.path}
+                              href={`/${lang}${child.path}`}
                               class="text-muted-foreground hover:text-foreground w-full rounded-md py-2 text-lg transition-colors"
                             >
                               {child.title}
@@ -174,7 +175,7 @@ const {
                 return (
                   <SheetClose asChild>
                     <a
-                      href={link.path}
+                      href={`/${lang}${link.path}`}
                       class="text-muted-foreground hover:text-foreground -mx-3 rounded-md px-3 py-2 text-xl opacity-0 transition-colors"
                       style={`--link-index: ${index}`}
                       data-nav-link

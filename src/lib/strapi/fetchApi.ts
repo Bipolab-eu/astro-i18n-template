@@ -10,7 +10,7 @@ const url = import.meta.env.API_URL || 'http://localhost:1337';
 
 interface QueryProps {
   apiRoute: string,
-  locale?: any,
+  locale: any,
   sort?: string[],
   filters?: Record<string, any>,
   fields?: string[]
