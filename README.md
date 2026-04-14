@@ -1,4 +1,4 @@
-# Astro + Starwind Project Structure
+# Astro + Starwind Pro
 Web project built with Astro, Starwind UI and Strapi as CMS.
 
 ## Requirements
