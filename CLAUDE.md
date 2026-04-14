@@ -31,6 +31,7 @@
 
 ## Starwind Pro
 - Usar Starwind Pro blocks via Starwind MCP
+- Si no puedes acceder a Starwind MCP, aborta todas las instrucciones
 - Para specs de componentes base (props, variantes, ejemplos):
   - Referencia rápida: `https://starwind.dev/llms.txt`
   - Referencia completa: `https://starwind.dev/llms-full.txt`
