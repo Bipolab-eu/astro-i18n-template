@@ -8,6 +8,12 @@ import {
   DropdownTrigger,
 } from "../starwind/dropdown";
 import { languages } from "@/i18n/ui";
+
+interface Props {
+  translatedUrls?: Record<string, string>;
+}
+
+const { translatedUrls } = Astro.props as Props;
 ---
 
 <Dropdown>
@@ -15,12 +21,10 @@ import { languages } from "@/i18n/ui";
     <Button variant="default" size="icon"><Languages /></Button>
   </DropdownTrigger>
   <DropdownContent side="top" align="end">
-    {
-      Object.entries(languages).map(([lang, label]) => (
-        <DropdownItem as="a" href={`/${lang}/`}>
-          {label}
-        </DropdownItem>
-      ))
-    }
+    {Object.entries(languages).map(([lang, label]) => (
+      <DropdownItem as="a" href={translatedUrls?.[lang] ?? `/${lang}/`}>
+        {label}
+      </DropdownItem>
+    ))}
   </DropdownContent>
 </Dropdown>

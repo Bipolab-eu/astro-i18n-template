@@ -22,9 +22,21 @@ const data = await fetchApi({
 // data[0] porque la API devuelve array aunque el slug sea único
 if (!data[0]) return Astro.redirect("/404")
 
-const { seo, [DZ]:items } = data[0]
+const { seo, [DZ]: items, localizations } = data[0]
+
+// Construye el mapa lang → URL traducida para el language switcher
+// La página actual se incluye con su propio slug
+const translatedUrls: Record<string, string> = {
+  [lang!]: `/${lang}/${page}/`,
+  ...Object.fromEntries(
+    (localizations ?? []).map((loc: { slug: string; locale: string }) => [
+      loc.locale,
+      `/${loc.locale}/${loc.slug}/`,
+    ])
+  ),
+}
 ---
 
-<Layout seo={seo}>
+<Layout seo={seo} translatedUrls={translatedUrls}>
   <DynamicZone blocks={items} />
 </Layout>

@@ -5,6 +5,11 @@ import Navbar2, {
 import LanguagePicker from "@/components/ui/LanguagePicker.astro";
 import { fetchNavigation } from "@/lib/strapi/fetchNavigation";
 
+interface Props {
+  translatedUrls?: Record<string, string>;
+}
+
+const { translatedUrls } = Astro.props as Props;
 const { lang } = Astro.params;
 
 const mockedData: NavLink[] = [
@@ -46,6 +51,6 @@ if (data?.length) navigation = data;
   
   <!-- Language Picker -->
   <div class="absolute bottom-0 right-0 p-4">
-    <LanguagePicker />
+    <LanguagePicker translatedUrls={translatedUrls} />
   </div>
 </div>

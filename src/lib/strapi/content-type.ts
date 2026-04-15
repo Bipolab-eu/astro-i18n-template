@@ -23,4 +23,8 @@ export const populate = {
       openGraph: { populate: 'ogImage' },
     },
   },
+  // Slugs traducidos de cada página — necesarios para el language switcher
+  localizations: {
+    fields: ['slug', 'locale'],
+  },
 };

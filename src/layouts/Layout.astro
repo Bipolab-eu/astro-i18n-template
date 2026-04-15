@@ -6,9 +6,10 @@ import LanguagePicker from "@/components/ui/LanguagePicker.astro";
 
 interface Props {
 	seo: any;
+	translatedUrls?: Record<string, string>;
 }
 
-const { seo } = Astro.props as Props;
+const { seo, translatedUrls } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -36,7 +37,7 @@ const { seo } = Astro.props as Props;
 
 	</head>
 	<body>
-		<StackedLayout>
+		<StackedLayout translatedUrls={translatedUrls}>
 			<slot />
 		</StackedLayout>
 	</body>
