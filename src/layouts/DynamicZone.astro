@@ -7,11 +7,20 @@ const { blocks } = Astro.props as Props;
 
 if (!blocks) return console.warn("DynamicZone: No sections found")
 
+// Elimina el prefijo de la zona (ej: "blocks.hero" → "hero") para que
+// listComponents no dependa del valor de DYNAMIC_ZONE
+const DZ = import.meta.env.DYNAMIC_ZONE
+
 ---
 
 {
   blocks.map((item: any, i: number) => {
-    const Component = listComponents[item.__component];
+    const slug = item.__component.replace(`${DZ}.`, '');
+    const Component = listComponents[slug];
+    if (!Component) {
+      console.warn(`DynamicZone: componente "${slug}" no registrado en content-type.ts`);
+      return null;
+    }
     return <Component key={`${item.id || ""}-${i}`} {...item} />;
   })
 }

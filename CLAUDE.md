@@ -42,10 +42,21 @@
 1. Buscar en Starwind MCP el bloque más adecuado e instalarlo
 2. Guardar en `src/components/ui/MiComponente.astro` (PascalCase)
 3. Definir `interface Props` con tipos explícitos
-4. Registrar en `src/lib/strapi/content-type.ts`:
-   - Añadir en `populate` bajo la dynamic zone correspondiente
-   - Añadir en `listComponents` con clave `{zona}.{slug-componente}`
-5. La clave debe coincidir exactamente con el UID del componente en Strapi
+4. Registrar en `src/lib/strapi/content-type.ts` añadiendo **una sola entrada** al objeto `registry`:
+   ```ts
+   'slug-componente': {
+     component: MiComponente,
+     query: { populate: true }, // soporta fields, populate anidado, etc.
+   },
+   ```
+   `listComponents` y `populate` se derivan automáticamente — no tocarlos a mano.
+5. El slug debe coincidir exactamente con el UID del componente en Strapi (sin el prefijo de zona)
+
+### Cómo funciona el registro
+- `DynamicZone.astro` recibe `item.__component` de Strapi (ej: `blocks.hero`)
+- Elimina el prefijo de zona (`blocks.`) usando `DYNAMIC_ZONE` del entorno
+- Busca el slug resultante (`hero`) en `listComponents`
+- Si no existe, emite un warning en consola y omite el bloque sin crashear
 
 ### Al terminar, mostrar siempre un resumen con:
 - Nombre del archivo y descripción del layout
